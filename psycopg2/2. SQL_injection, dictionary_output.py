@@ -23,6 +23,7 @@ student_id = "1"
 #     print(row[0], row[1])  # Access columns using indices
 # for row in rows:
 #     print(row['column1'], row['column2'])  # Access columns using column names
+# cursor = connection.cursor() # INDEXOVY VYSTUP
 cursor = connection.cursor(cursor_factory=psycopg2.extras.DictCursor)  # DICTIONARY VYSTUP
 
 # ZLE VOCI SQL INJECTION
