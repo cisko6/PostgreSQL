@@ -1,0 +1,17 @@
+SET CLIENT_ENCODING TO 'utf8'; - po prvotnom nainstalovani
+
+\l - zobrazenie databáz
+
+\c [nazov databazy] [nazov pouzivatela] - prepnutie na inu databazu (\c postgres postgres)
+
+\dt - pozretie tabuliek v databaze
+
+\d [nazov tabulky] - atributy tabuliek (\d "Invoice")
+
+\dn - pozretie schemy
+
+\s - historia (nefunguje na windowse)
+
+psql -d [nazov databazy] -U [nazov pouzivatela] -W - pripojenie na databazu
+
+\q - ukončí PSQL
