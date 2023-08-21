@@ -4,7 +4,7 @@ from psycopg2 import sql
 import sys
 
 
-def get_balance(cursor, table, account_id):
+def get_balance(connection, cursor, table, account_id):
     try:
         sql_command = sql.SQL(
             """
@@ -21,6 +21,8 @@ def get_balance(cursor, table, account_id):
     except Exception as e:
         print(f"Nastala chyba pri získavaní balancu. Robim ROLLBACK.\nChyba: {e}")
         connection.rollback()
+        cursor.close()
+        connection.close()
         sys.exit(1)
 
 
@@ -50,7 +52,9 @@ def pridaj_balance(connection, cursor, table_name, account_id_col, balance_col, 
     except Exception as e:
         print(f"Nastala chyba pri transakcii. Robim ROLLBACK.\nChyba: {e}")
         connection.rollback()
-        sys.exit(0)
+        cursor.close()
+        connection.close()
+        sys.exit(1)
 
 
 if __name__ == "__main__":
@@ -75,9 +79,9 @@ if __name__ == "__main__":
     account_id2 = 1
     pocet = 50
 
-    get_balance(cursor, table, account_id)
+    get_balance(connection, cursor, table, account_id)
     pridaj_balance(connection, cursor, table, account_id, balance_col, account_id1, account_id2, pocet)
-    get_balance(cursor, table, account_id)
+    get_balance(connection, cursor, table, account_id)
 
     cursor.close()
     connection.close()
